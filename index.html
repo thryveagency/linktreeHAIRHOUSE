@@ -57,14 +57,13 @@
       position: fixed;
       inset: 0;
       z-index: 0;
-      background-color: #050402;
     }
 
     .page-bg img {
       width: 100%;
       height: 100%;
-      object-fit: contain;
-      object-position: center;
+      object-fit: cover;
+      object-position: center top;
       display: block;
     }
 
@@ -89,38 +88,134 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 8vh 20px 60px;
+      padding: 0 20px 60px;
     }
 
-
+    /* ── LAYOUT DESKTOP ─────────────────────────── */
+    @media (min-width: 1024px) {
+      body {
+        display: flex;
+        flex-direction: row-reverse;
+        overflow: hidden;
+      }
+      .page-bg {
+        position: relative;
+        flex: 1;
+        height: 100vh;
+      }
+      .page-bg::after {
+        background: linear-gradient(
+          to left,
+          transparent 0%,
+          rgba(10,7,2,0.3) 50%,
+          rgba(10,7,2,0.98) 100%
+        );
+      }
+      .wrapper {
+        width: 50%;
+        max-width: 600px;
+        height: 100vh;
+        overflow-y: auto;
+        padding: 40px 60px;
+        align-items: center;
+        justify-content: flex-start;
+        position: relative;
+        z-index: 1;
+      }
+      .wrapper::before {
+        content: '';
+        position: fixed;
+        top: 0; bottom: 0;
+        left: 0;
+        width: 50%;
+        max-width: 600px;
+        background-image: 
+          linear-gradient(to right, transparent 50%, rgba(10,7,2,0.95) 100%),
+          url('assets/ChatGPT%20Image%2030%20de%20abr.%20de%202026%2C%2015_00_58.png');
+        background-size: cover, cover;
+        background-position: right center, center;
+        background-repeat: no-repeat;
+        z-index: -2;
+        filter: brightness(0.35) contrast(1.1) blur(4px);
+        transform: scale(1.05);
+        transform-origin: left top;
+        pointer-events: none;
+      }
+      .wrapper::after {
+        content: '';
+        position: fixed;
+        top: 0; bottom: 0;
+        left: 0;
+        width: 50%;
+        max-width: 600px;
+        background-image: 
+          radial-gradient(circle at 25% 35%, rgba(201,169,110,0.2) 0%, transparent 15%),
+          radial-gradient(circle at 75% 65%, rgba(255,230,150,0.15) 0%, transparent 20%),
+          radial-gradient(circle at 50% 85%, rgba(201,169,110,0.1) 0%, transparent 12%);
+        z-index: -1;
+        pointer-events: none;
+        animation: subtleShimmer 6s ease-in-out infinite alternate;
+        mix-blend-mode: screen;
+      }
+      .wrapper::-webkit-scrollbar {
+        width: 6px;
+      }
+      .wrapper::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .wrapper::-webkit-scrollbar-thumb {
+        background: rgba(201,169,110,0.4);
+        border-radius: 4px;
+      }
+    }
 
     /* ── LOGO ────────────────────────────────────── */
-    .additional-logo {
+    .logo-wrap {
       width: 100%;
+      max-width: 420px;
+      padding-top: 48px;
+      padding-bottom: 12px;
       display: flex;
-      justify-content: center;
-      margin-top: 48px;
-      margin-bottom: 24px;
-      animation: fadeUp 0.7s ease both;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
     }
 
-    .additional-logo a {
-      display: flex;
-      justify-content: center;
-      width: 100%;
+    .logo-wrap a {
+      display: block;
       text-decoration: none;
     }
 
-    .additional-logo img {
-      width: 100%;
-      max-width: 380px;
-      height: auto;
-      filter: drop-shadow(0 4px 16px rgba(201,169,110,0.3));
-      transition: transform var(--transition);
+    .logo-name-link {
+      display: block;
+      text-decoration: none;
     }
 
-    .additional-logo a:hover img {
+    .logo-wrap img {
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      filter: drop-shadow(0 4px 24px rgba(201,169,110,0.35));
+      transition: filter var(--transition), transform var(--transition);
+    }
+
+    .logo-name-link:hover img {
+      filter: drop-shadow(0 6px 32px rgba(201,169,110,0.7));
       transform: scale(1.03);
+    }
+
+    .logo-tagline {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-align: center;
+      margin-top: 10px;
+      opacity: 0.85;
     }
 
     /* ── GOLD DIVIDER ────────────────────────────── */
@@ -351,6 +446,7 @@
       100% { opacity: 0.3; filter: brightness(0.9); transform: scale(0.98); }
     }
 
+    .logo-wrap { animation: fadeUp 0.7s ease both; }
     .divider { animation: fadeUp 0.7s 0.15s ease both; }
 
     .link-card:nth-child(1) { animation: fadeUp 0.55s 0.20s ease both; }
@@ -364,12 +460,12 @@
 
     /* ── RESPONSIVE ──────────────────────────────── */
     @media (max-width: 480px) {
-      .additional-logo {
-        margin-top: 36px;
+      .logo-wrap {
+        padding-top: 36px;
       }
 
-      .additional-logo img {
-        max-width: 280px;
+      .logo-wrap img {
+        max-width: 300px;
       }
 
       .link-title {
@@ -394,7 +490,7 @@
   <!-- BACKGROUND -->
   <div class="page-bg" aria-hidden="true">
     <img
-      src="assets/2_605c6df85ff8.png"
+      src="assets/Emanuel.jpg.jpeg"
       sizes="100vw"
       alt="Emanuel Alves — Hair House"
       fetchpriority="high"
@@ -406,8 +502,8 @@
   <div class="wrapper">
 
     <!-- LOGO -->
-    <div class="additional-logo">
-      <a href="https://api.whatsapp.com/send/?phone=5579991925801&text=Oi%2C%20vim%20atrav%C3%A9s%20do%20instagram." target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <div class="logo-wrap">
+      <a href="https://api.whatsapp.com/send/?phone=5579991925801&text=Vim+do+link+da+bio" target="_blank" rel="noopener" class="logo-name-link">
         <img src="assets/2_605c6df85ff8.png" alt="Selo Hair House" />
       </a>
     </div>
